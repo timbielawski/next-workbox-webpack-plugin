@@ -130,7 +130,7 @@ class NextWorkboxWebpackPlugin {
   async importPrecacheManifest({ swDestRoot, swURLRoot, shouldFingerprint }) {
     const manifest = await this.globPrecacheManifest(this.options);
     const context = `self.__precacheManifest = ${JSON.stringify(manifest)}`;
-    const output = `next-precache-manifest-${shouldFingerprint && hash(context)}.js`;
+    const output = `next-precache-manifest${shouldFingerprint ? `-${hash(context)}` : ''}.js`;
 
     // dump out precached manifest for next pages, chunks
     fs.writeFileSync(path.join(swDestRoot, output), context);
