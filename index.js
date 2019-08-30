@@ -46,7 +46,7 @@ class NextWorkboxWebpackPlugin {
       uniqueId,
       swDestRoot,
       swURLRoot,
-      assetPrefix,
+      assetPrefix = "",
       ...swConfig
     } = {
       ...defaultConfig,
