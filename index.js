@@ -47,6 +47,7 @@ class NextWorkboxWebpackPlugin {
       swDestRoot,
       swURLRoot,
       assetPrefix = "",
+      shouldFingerprint = true,
       ...swConfig
     } = {
       ...defaultConfig,
@@ -126,10 +127,10 @@ class NextWorkboxWebpackPlugin {
     ).then(files => files.reduce((c, p) => c.concat(p), []));
   }
 
-  async importPrecacheManifest({ swDestRoot, swURLRoot }) {
+  async importPrecacheManifest({ swDestRoot, swURLRoot, shouldFingerprint }) {
     const manifest = await this.globPrecacheManifest(this.options);
     const context = `self.__precacheManifest = ${JSON.stringify(manifest)}`;
-    const output = `next-precache-manifest-${hash(context)}.js`;
+    const output = `next-precache-manifest-${shouldFingerprint && hash(context)}.js`;
 
     // dump out precached manifest for next pages, chunks
     fs.writeFileSync(path.join(swDestRoot, output), context);
